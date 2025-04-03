@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сплавы на Камчатке</title>
+  <style>
+    /* Определяем переменные для цветовой палитры */
+    :root {
+      --primary: #2E8B57;
+      --secondary: #246f47;
+      --accent: #A2D5AB;
+      --background: #F0F8F0;
+      --text: #333;
+      --header-bg: #fff;
+      --footer-bg: #333;
+      --footer-text: #fff;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(0); }
+    }
+
+    /* Сброс стилей и базовые настройки */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--background);
+      overflow-x: hidden;
+    }
+    /* Контейнер */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    /* Header */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 1px solid #eaeaea;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      animation: fadeIn 1s ease forwards;
+    }
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+    .logo a {
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--primary);
+    }
+    .nav-menu ul {
+      list-style: none;
+      display: flex;
+    }
+    .nav-menu ul li {
+      margin-left: 20px;
+    }
+    .nav-menu ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav-menu ul li a:hover {
+      color: var(--primary);
+    }
+    /* Мобильное меню */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--text);
+      margin: 4px 0;
+    }
+    /* Hero Section слайдер */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* Слайдер для главного экрана */
+    .hero-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .hero-slides {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+    .hero-slide {
+      min-width: 100%;
+      height: 100%;
+    }
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Контент поверх слайдера */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 0 20px;
+      animation: fadeIn 1s ease 0.5s forwards;
+      opacity: 0;
+    }
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #000;
+    }
+    .hero-content p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #000;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: var(--secondary);
+    }
+    /* Раздел "О проекте" */
+    .about-section {
+      padding: 80px 0;
+      background: #fff;
+      text-align: center;
+      margin-top: 70px;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .about-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .about-section p {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-size: 18px;
+    }
+    .about-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      animation: slideIn 1s ease forwards;
+    }
+    /* Раздел "Экскурсии" */
+    .services-section {
+      padding: 80px 0;
+      text-align: center;
+      background: var(--accent);
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .services-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .service-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .service-item {
+      flex: 0 0 30%;
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+      background: #fff;
+    }
+    .service-item:hover {
+      transform: translateY(-5px);
+    }
+    .service-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .service-item h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    .service-item p {
+      font-size: 16px;
+    }
+    /* Раздел "Галерея" */
+    .portfolio-section {
+      padding: 80px 0;
+      background: #fff;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .portfolio-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .slider {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #fff;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+    }
+    .slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(46, 139, 87, 0.7);
+      border: none;
+      color: #fff;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 18px;
+      transition: background 0.3s ease;
+    }
+    .slider-btn:hover {
+      background: rgba(46, 139, 87, 1);
+    }
+    .prev {
+      left: 15px;
+    }
+    .next {
+      right: 15px;
+    }
+    /* Раздел "Контакты" с кнопками для мессенджеров */
+    .contact-section {
+      padding: 80px 0;
+      text-align: center;
+      background: var(--accent);
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .contact-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .chat-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .chat-buttons a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    .chat-buttons a:hover {
+      background: var(--secondary);
+    }
+    /* Footer */
+    .site-footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 20px 0;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    .site-footer p {
+      font-size: 14px;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .service-items {
+        flex-direction: column;
+        align-items: center;
+      }
+      .service-item {
+        flex: 0 0 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="logo">
+        <a href="#">Логотип</a>
+      </div>
+      <nav class="nav-menu">
+        <ul>
+          <li><a href="#hero">Главная</a></li>
+          <li><a href="#about">О проекте</a></li>
+          <li><a href="#services">Экскурсии</a></li>
+          <li><a href="#portfolio">Галерея</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section слайдер -->
+  <section id="hero" class="hero-section">
+    <div class="hero-slider">
+      <div class="hero-slides">
+        <div class="hero-slide">
+          <img src="images/hero1.jpg" alt="Фото 1">
+        </div>
+        <div class="hero-slide">
+          <img src="images/hero2.jpg" alt="Фото 2">
+        </div>
+        <div class="hero-slide">
+          <img src="images/hero3.jpg" alt="Фото 3">
+        </div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h1>Сплавы на Камчатке</h1>
+      <p>Откройте для себя уникальные приключения и живописные маршруты.</p>
+      <a href="#contact" class="btn">Связаться с нами</a>
+    </div>
+  </section>
+
+  <!-- Раздел "О проекте" -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <h2>О проекте</h2>
+      <p>Наш проект посвящён организации незабываемых путешествий по Камчатке. Мы предлагаем экскурсии по живописным маршрутам, позволяющие насладиться уникальной природой и активным отдыхом.</p>
+      <img src="images/about.jpg" alt="О проекте">
+    </div>
+  </section>
+
+  <!-- Раздел "Экскурсии" -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <h2>Экскурсии</h2>
+      <div class="service-items">
+        <div class="service-item">
+          <img src="images/service1.jpg" alt="Индивидуальные туры">
+          <h3>Индивидуальные туры</h3>
+          <p>Персональные маршруты для любителей уединённого отдыха.</p>
+        </div>
+        <div class="service-item">
+          <img src="images/service2.jpg" alt="Групповые путешествия">
+          <h3>Групповые путешествия</h3>
+          <p>Организованные туры для компаний и друзей.</p>
+        </div>
+        <div class="service-item">
+          <img src="images/service3.jpg" alt="Активный отдых">
+          <h3>Активный отдых</h3>
+          <p>Экскурсии с элементами приключений и активных развлечений.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Раздел "Галерея" -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <h2>Галерея</h2>
+      <div class="slider">
+        <div class="slides">
+          <div class="slide">
+            <img src="images/portfolio1.jpg" alt="Фото 1">
+          </div>
+          <div class="slide">
+            <img src="images/portfolio2.jpg" alt="Фото 2">
+          </div>
+          <div class="slide">
+            <img src="images/portfolio3.jpg" alt="Фото 3">
+          </div>
+        </div>
+        <button class="slider-btn prev">&#10094;</button>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Раздел "Контакты" с кнопками для мессенджеров -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2>Контакты</h2>
+      <div class="chat-buttons">
+        <a href="#" target="_blank">WhatsApp</a>
+        <a href="#" target="_blank">Telegram</a>
+        <a href="tel:+123456789" target="_blank">Позвонить</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Ваша Компания. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Переключение мобильного меню
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    menuToggle.addEventListener('click', () => {
+      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Слайдер для раздела "Галерея"
+    const slides = document.querySelector('.slides');
+    const slideImages = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentIndex = 0;
+    const totalSlides = slideImages.length;
+    function showSlide(index) {
+      if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+    });
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+    });
+    setInterval(() => {
+      showSlide(currentIndex + 1);
+    }, 5000);
+
+    // Слайдер для главного экрана (Hero)
+    const heroSlides = document.querySelector('.hero-slides');
+    const heroSlideImages = document.querySelectorAll('.hero-slide');
+    let heroCurrentIndex = 0;
+    const heroTotalSlides = heroSlideImages.length;
+    function showHeroSlide(index) {
+      if(index < 0) {
+        heroCurrentIndex = heroTotalSlides - 1;
+      } else if (index >= heroTotalSlides) {
+        heroCurrentIndex = 0;
+      } else {
+        heroCurrentIndex = index;
+      }
+      heroSlides.style.transform = `translateX(-${heroCurrentIndex * 100}%)`;
+    }
+    setInterval(() => {
+      showHeroSlide(heroCurrentIndex + 1);
+    }, 5000);
+  </script>
+</body>
+</html>
