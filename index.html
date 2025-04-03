@@ -5,29 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сплавы на Камчатке</title>
   <style>
-    /* Определяем переменные для цветовой палитры */
+    /* Переменные для тёмной темы */
     :root {
-      --primary: #2E8B57;
-      --secondary: #246f47;
-      --accent: #A2D5AB;
-      --background: #F0F8F0;
-      --text: #333;
-      --header-bg: #fff;
-      --footer-bg: #333;
-      --footer-text: #fff;
+      --primary: #bb86fc;
+      --secondary: #3700b3;
+      --accent: #03dac6;
+      --background: #121212;
+      --header-bg: #1f1f1f;
+      --footer-bg: #1f1f1f;
+      --text: #ffffff;
     }
-
+    
     /* Анимации */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes slideIn {
       from { transform: translateX(-100%); }
       to { transform: translateX(0); }
     }
-
+    
     /* Сброс стилей и базовые настройки */
     * {
       margin: 0;
@@ -41,16 +39,16 @@
       background: var(--background);
       overflow-x: hidden;
     }
-    /* Контейнер */
     .container {
       width: 90%;
       max-width: 1200px;
       margin: 0 auto;
     }
+    
     /* Header */
     .site-header {
       background: var(--header-bg);
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid #333;
       position: fixed;
       width: 100%;
       top: 0;
@@ -69,23 +67,48 @@
       text-decoration: none;
       color: var(--primary);
     }
-    .nav-menu ul {
-      list-style: none;
+    .nav-menu {
       display: flex;
+      gap: 20px;
     }
-    .nav-menu ul li {
-      margin-left: 20px;
-    }
-    .nav-menu ul li a {
+    .nav-menu a {
       text-decoration: none;
       color: var(--text);
       font-size: 16px;
       transition: color 0.3s ease;
     }
-    .nav-menu ul li a:hover {
+    .nav-menu a:hover {
       color: var(--primary);
     }
-    /* Мобильное меню */
+    
+    /* Мобильное меню (скрытое по умолчанию) */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: var(--header-bg);
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 10px;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1500;
+    }
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 15px;
+      background: var(--primary);
+      border-radius: 5px;
+      transition: background 0.3s ease;
+      text-align: center;
+    }
+    .mobile-menu a:hover {
+      background: var(--secondary);
+    }
+    
+    /* Иконка меню (гамбургер) */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -97,13 +120,13 @@
       background: var(--text);
       margin: 4px 0;
     }
-    /* Hero Section слайдер */
+    
+    /* Hero Section (слайдер) */
     .hero-section {
       position: relative;
       height: 100vh;
       overflow: hidden;
     }
-    /* Слайдер для главного экрана */
     .hero-slider {
       position: absolute;
       top: 0;
@@ -127,8 +150,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.8;
     }
-    /* Контент поверх слайдера */
     .hero-content {
       position: relative;
       z-index: 2;
@@ -145,18 +168,18 @@
     .hero-content h1 {
       font-size: 48px;
       margin-bottom: 20px;
-      color: #000;
+      color: var(--text);
     }
     .hero-content p {
       font-size: 20px;
       margin-bottom: 30px;
-      color: #000;
+      color: var(--text);
     }
     .btn {
       display: inline-block;
       padding: 12px 30px;
       background: var(--primary);
-      color: #fff;
+      color: var(--background);
       text-decoration: none;
       border-radius: 5px;
       transition: background 0.3s ease;
@@ -164,10 +187,11 @@
     .btn:hover {
       background: var(--secondary);
     }
+    
     /* Раздел "О проекте" */
     .about-section {
       padding: 80px 0;
-      background: #fff;
+      background: #1e1e1e;
       text-align: center;
       margin-top: 70px;
       animation: fadeIn 1s ease forwards;
@@ -182,6 +206,7 @@
       max-width: 800px;
       margin: 0 auto 30px;
       font-size: 18px;
+      color: var(--text);
     }
     .about-section img {
       max-width: 100%;
@@ -189,11 +214,12 @@
       border-radius: 10px;
       animation: slideIn 1s ease forwards;
     }
+    
     /* Раздел "Экскурсии" */
     .services-section {
       padding: 80px 0;
       text-align: center;
-      background: var(--accent);
+      background: #1a1a1a;
       animation: fadeIn 1s ease forwards;
       opacity: 0;
     }
@@ -211,10 +237,10 @@
       flex: 0 0 30%;
       margin-bottom: 30px;
       padding: 20px;
-      border: 1px solid #eaeaea;
+      border: 1px solid #333;
       border-radius: 10px;
       transition: transform 0.3s ease;
-      background: #fff;
+      background: #2c2c2c;
     }
     .service-item:hover {
       transform: translateY(-5px);
@@ -232,11 +258,13 @@
     }
     .service-item p {
       font-size: 16px;
+      color: var(--text);
     }
+    
     /* Раздел "Галерея" */
     .portfolio-section {
       padding: 80px 0;
-      background: #fff;
+      background: #1e1e1e;
       text-align: center;
       animation: fadeIn 1s ease forwards;
       opacity: 0;
@@ -252,7 +280,7 @@
       margin: 0 auto;
       overflow: hidden;
       border-radius: 10px;
-      background: #fff;
+      background: #2c2c2c;
     }
     .slides {
       display: flex;
@@ -270,9 +298,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(46, 139, 87, 0.7);
+      background: rgba(187, 134, 252, 0.7);
       border: none;
-      color: #fff;
+      color: var(--background);
       padding: 10px;
       cursor: pointer;
       border-radius: 50%;
@@ -280,7 +308,7 @@
       transition: background 0.3s ease;
     }
     .slider-btn:hover {
-      background: rgba(46, 139, 87, 1);
+      background: rgba(55, 0, 179, 0.9);
     }
     .prev {
       left: 15px;
@@ -288,11 +316,12 @@
     .next {
       right: 15px;
     }
-    /* Раздел "Контакты" с кнопками для мессенджеров */
+    
+    /* Раздел "Контакты" */
     .contact-section {
       padding: 80px 0;
       text-align: center;
-      background: var(--accent);
+      background: #1a1a1a;
       animation: fadeIn 1s ease forwards;
       opacity: 0;
     }
@@ -312,7 +341,7 @@
       display: inline-block;
       padding: 10px 20px;
       background: var(--primary);
-      color: #fff;
+      color: var(--background);
       text-decoration: none;
       border-radius: 5px;
       transition: background 0.3s ease;
@@ -320,10 +349,11 @@
     .chat-buttons a:hover {
       background: var(--secondary);
     }
+    
     /* Footer */
     .site-footer {
       background: var(--footer-bg);
-      color: var(--footer-text);
+      color: var(--text);
       padding: 20px 0;
       text-align: center;
       animation: fadeIn 1s ease forwards;
@@ -332,13 +362,19 @@
     .site-footer p {
       font-size: 14px;
     }
-    /* Responsive */
+    
+    /* Responsive: на мобильных устройствах */
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
       }
       .menu-toggle {
         display: flex;
+      }
+      /* Мобильное меню показываем поверх контента */
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
       }
       .service-items {
         flex-direction: column;
@@ -357,23 +393,29 @@
       <div class="logo">
         <a href="#">Логотип</a>
       </div>
+      <!-- Основное меню (для десктопов) -->
       <nav class="nav-menu">
-        <ul>
-          <li><a href="#hero">Главная</a></li>
-          <li><a href="#about">О проекте</a></li>
-          <li><a href="#services">Экскурсии</a></li>
-          <li><a href="#portfolio">Галерея</a></li>
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
+        <a href="#hero">Главная</a>
+        <a href="#about">О проекте</a>
+        <a href="#services">Экскурсии</a>
+        <a href="#portfolio">Галерея</a>
+        <a href="#contact">Контакты</a>
       </nav>
-      <div class="menu-toggle">
+      <!-- Иконка мобильного меню -->
+      <div class="menu-toggle" id="menuToggle">
         <span></span>
         <span></span>
         <span></span>
       </div>
+      <!-- Мобильное меню с контактными кнопками -->
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#" target="_blank">WhatsApp</a>
+        <a href="#" target="_blank">Telegram</a>
+        <a href="tel:+123456789" target="_blank">Позвонить</a>
+      </div>
     </div>
   </header>
-
+  
   <!-- Hero Section слайдер -->
   <section id="hero" class="hero-section">
     <div class="hero-slider">
@@ -395,7 +437,7 @@
       <a href="#contact" class="btn">Связаться с нами</a>
     </div>
   </section>
-
+  
   <!-- Раздел "О проекте" -->
   <section id="about" class="about-section">
     <div class="container">
@@ -404,7 +446,7 @@
       <img src="images/about.jpg" alt="О проекте">
     </div>
   </section>
-
+  
   <!-- Раздел "Экскурсии" -->
   <section id="services" class="services-section">
     <div class="container">
@@ -428,7 +470,7 @@
       </div>
     </div>
   </section>
-
+  
   <!-- Раздел "Галерея" -->
   <section id="portfolio" class="portfolio-section">
     <div class="container">
@@ -450,8 +492,8 @@
       </div>
     </div>
   </section>
-
-  <!-- Раздел "Контакты" с кнопками для мессенджеров -->
+  
+  <!-- Раздел "Контакты" -->
   <section id="contact" class="contact-section">
     <div class="container">
       <h2>Контакты</h2>
@@ -462,22 +504,28 @@
       </div>
     </div>
   </section>
-
+  
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <p>&copy; 2025 Ваша Компания. Все права защищены.</p>
     </div>
   </footer>
-
+  
   <script>
     // Переключение мобильного меню
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
     menuToggle.addEventListener('click', () => {
-      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+      // Переключаем видимость мобильного меню
+      if (mobileMenu.style.display === 'flex') {
+        mobileMenu.style.display = 'none';
+      } else {
+        mobileMenu.style.display = 'flex';
+        mobileMenu.style.flexDirection = 'column';
+      }
     });
-
+    
     // Слайдер для раздела "Галерея"
     const slides = document.querySelector('.slides');
     const slideImages = document.querySelectorAll('.slide');
@@ -504,7 +552,7 @@
     setInterval(() => {
       showSlide(currentIndex + 1);
     }, 5000);
-
+    
     // Слайдер для главного экрана (Hero)
     const heroSlides = document.querySelector('.hero-slides');
     const heroSlideImages = document.querySelectorAll('.hero-slide');
