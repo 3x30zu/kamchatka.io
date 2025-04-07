@@ -248,7 +248,8 @@
                      "\nEmail: " + email +
                      "\nТелефон: " + phone +
                      "\nКомментарий: " + message;
-        const chat_id = "ozuexe"; // Замените на реальный chat_id
+        // Используем ваш Telegram-ник в качестве chat_id
+        const chat_id = "@ozuexe"; 
         const token = "7368926453:AAE10VDqHOaipy9vd7g5bV8GOExClZCCl50";
         
         fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
