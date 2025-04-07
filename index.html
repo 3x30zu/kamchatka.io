@@ -42,7 +42,7 @@
       text-decoration: none;
     }
     .site-header .logo img {
-      height: 50px;
+      height: 70px;
     }
     .nav-menu a {
       color: #fff;
@@ -52,6 +52,37 @@
     }
     .nav-menu a:hover {
       color: var(--primary);
+    }
+    /* Мобильное меню */
+    .mobile-menu-btn {
+      display: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      align-items: center;
+      justify-content: center;
+    }
+    .mobile-menu-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .mobile-menu-content a {
+      display: block;
+      margin: 15px 0;
+      color: #000;
+      text-decoration: none;
+      font-size: 1.5rem;
     }
     /* Секции */
     section {
@@ -194,6 +225,15 @@
       font-size: 1.5rem;
       cursor: pointer;
     }
+    /* Адаптив */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -210,7 +250,19 @@
       <a href="#services">Экскурсии</a>
       <a href="#portfolio">Галерея</a>
     </nav>
+    <!-- Кнопка мобильного меню -->
+    <div class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</div>
   </header>
+  
+  <!-- Мобильное меню -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu-content">
+      <a href="#hero" onclick="document.getElementById('mobileMenuOverlay').style.display='none'">Главная</a>
+      <a href="#about" onclick="document.getElementById('mobileMenuOverlay').style.display='none'">О проекте</a>
+      <a href="#services" onclick="document.getElementById('mobileMenuOverlay').style.display='none'">Экскурсии</a>
+      <a href="#portfolio" onclick="document.getElementById('mobileMenuOverlay').style.display='none'">Галерея</a>
+    </div>
+  </div>
   
   <!-- Секция Hero -->
   <section id="hero" class="hero-section">
@@ -352,6 +404,17 @@
           showSlide(currentSlide);
         }, 5000);
       });
+    });
+    
+    // Логика мобильного меню
+    document.getElementById("mobileMenuBtn").addEventListener("click", function(){
+      document.getElementById("mobileMenuOverlay").style.display = "flex";
+    });
+    
+    document.getElementById("mobileMenuOverlay").addEventListener("click", function(e) {
+      if(e.target === document.getElementById("mobileMenuOverlay")){
+         document.getElementById("mobileMenuOverlay").style.display = "none";
+      }
     });
   </script>
 </body>
