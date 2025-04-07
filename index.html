@@ -4,573 +4,278 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сплавы на Камчатке</title>
+  <!-- Подключаем красивый шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    /* Переменные для тёмной темы с зелёными оттенками */
+    /* Основные переменные */
     :root {
-      --primary: #4CAF50;     /* основной зелёный */
-      --secondary: #388E3C;   /* темно-зелёный */
-      --accent: #81C784;      /* светло-зелёный */
-      --background: #121212;
-      --header-bg: #1f1f1f;
-      --footer-bg: #1f1f1f;
-      --text: #ffffff;
+      --primary: #ff6f61;
+      --secondary: #ff9472;
+      --accent: #ffd1c1;
+      --text-color: #ffffff;
+      --bg-gradient: linear-gradient(135deg, #1d2671, #c33764);
     }
     
-    /* Анимации */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideIn {
-      from { transform: translateX(-100%); }
-      to { transform: translateX(0); }
-    }
-    
-    /* Сброс стилей и базовые настройки */
+    /* Сброс и базовые стили */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-color);
       line-height: 1.6;
-      color: var(--text);
-      background: var(--background);
-      overflow-x: hidden;
-    }
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
     }
     
-    /* Header */
+    /* Шапка сайта */
     .site-header {
-      background: var(--header-bg);
-      border-bottom: 1px solid #333;
+      background: rgba(0,0,0,0.7);
       position: fixed;
       width: 100%;
-      top: 0;
+      padding: 20px;
       z-index: 1000;
-      animation: fadeIn 1s ease forwards;
-    }
-    .site-header .container {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 15px 0;
+      align-items: center;
     }
-    .logo a {
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
+    .site-header .logo a {
       color: var(--primary);
-    }
-    .nav-menu {
-      display: flex;
-      gap: 20px;
+      font-size: 2rem;
+      text-decoration: none;
     }
     .nav-menu a {
+      color: var(--text-color);
+      margin: 0 10px;
       text-decoration: none;
-      color: var(--text);
-      font-size: 16px;
       transition: color 0.3s ease;
     }
     .nav-menu a:hover {
-      color: var(--primary);
+      color: var(--accent);
     }
     
-    /* Мобильное меню (скрытое по умолчанию) */
-    .mobile-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background: var(--header-bg);
-      border: 1px solid #333;
-      border-radius: 5px;
-      padding: 10px;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 1500;
-    }
-    .mobile-menu a {
-      color: var(--text);
-      text-decoration: none;
-      padding: 10px 15px;
-      background: var(--primary);
-      border-radius: 5px;
-      transition: background 0.3s ease;
-      text-align: center;
-    }
-    .mobile-menu a:hover {
-      background: var(--secondary);
-    }
-    
-    /* Иконка меню (гамбургер) */
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: var(--text);
-      margin: 4px 0;
-    }
-    
-    /* Hero Section (слайдер) */
+    /* Секция Hero */
     .hero-section {
-      position: relative;
       height: 100vh;
-      overflow: hidden;
-    }
-    .hero-slider {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      overflow: hidden;
-    }
-    .hero-slides {
       display: flex;
-      width: 300%;
-      height: 100%;
-      transition: transform 0.5s ease-in-out;
-    }
-    .hero-slide {
-      min-width: 100%;
-      height: 100%;
-    }
-    .hero-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.8;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100%;
+      flex-direction: column;
       text-align: center;
-      padding: 0 20px;
-      animation: fadeIn 1s ease 0.5s forwards;
-      opacity: 0;
+      padding: 20px;
     }
-    .hero-content h1 {
-      font-size: 48px;
+    .hero-section h1 {
+      font-size: 3rem;
       margin-bottom: 20px;
-      color: var(--text);
     }
-    .hero-content p {
-      font-size: 20px;
-      margin-bottom: 30px;
-      color: var(--text);
+    .hero-section p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 600px;
     }
     .btn {
-      display: inline-block;
-      padding: 12px 30px;
       background: var(--primary);
-      color: var(--background);
-      text-decoration: none;
-      border-radius: 5px;
+      border: none;
+      padding: 15px 30px;
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
       transition: background 0.3s ease;
     }
     .btn:hover {
       background: var(--secondary);
     }
     
-    /* Раздел "О проекте" */
-    .about-section {
-      padding: 80px 0;
-      background: #1e1e1e;
+    /* Другие секции */
+    section {
+      padding: 80px 20px;
       text-align: center;
-      margin-top: 70px;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    .about-section h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-    .about-section p {
-      max-width: 800px;
-      margin: 0 auto 30px;
-      font-size: 18px;
-      color: var(--text);
-    }
-    .about-section img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      animation: slideIn 1s ease forwards;
-    }
-    
-    /* Раздел "Экскурсии" */
-    .services-section {
-      padding: 80px 0;
-      text-align: center;
-      background: #1a1a1a;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    .services-section h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-    .service-items {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-    }
-    .service-item {
-      flex: 0 0 30%;
-      margin-bottom: 30px;
-      padding: 20px;
-      border: 1px solid #333;
-      border-radius: 10px;
-      transition: transform 0.3s ease;
-      background: #2c2c2c;
-    }
-    .service-item:hover {
-      transform: translateY(-5px);
-    }
-    .service-item img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
-    .service-item h3 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: var(--primary);
-    }
-    .service-item p {
-      font-size: 16px;
-      color: var(--text);
-    }
-    
-    /* Раздел "Галерея" */
-    .portfolio-section {
-      padding: 80px 0;
-      background: #1e1e1e;
-      text-align: center;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    .portfolio-section h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-    .slider {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 10px;
-      background: #2c2c2c;
-    }
-    .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .slide {
-      min-width: 100%;
-    }
-    .slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(76, 175, 80, 0.7);
-      border: none;
-      color: var(--background);
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 50%;
-      font-size: 18px;
-      transition: background 0.3s ease;
-    }
-    .slider-btn:hover {
-      background: rgba(56, 142, 60, 0.9);
-    }
-    .prev {
-      left: 15px;
-    }
-    .next {
-      right: 15px;
-    }
-    
-    /* Раздел "Контакты" */
-    .contact-section {
-      padding: 80px 0;
-      text-align: center;
-      background: #1a1a1a;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    .contact-section h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-    .chat-buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .chat-buttons a {
-      display: inline-block;
-      padding: 10px 20px;
-      background: var(--primary);
-      color: var(--background);
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
-    .chat-buttons a:hover {
-      background: var(--secondary);
     }
     
     /* Footer */
     .site-footer {
-      background: var(--footer-bg);
-      color: var(--text);
-      padding: 20px 0;
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
       text-align: center;
-      animation: fadeIn 1s ease forwards;
-      opacity: 0;
-    }
-    .site-footer p {
-      font-size: 14px;
+      color: #fff;
     }
     
-    /* Responsive: на мобильных устройствах */
-    @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-      }
-      .menu-toggle {
-        display: flex;
-      }
-      /* Мобильное меню показываем поверх контента */
-      .mobile-menu {
-        display: none;
-        flex-direction: column;
-      }
-      .service-items {
-        flex-direction: column;
-        align-items: center;
-      }
-      .service-item {
-        flex: 0 0 80%;
-      }
+    /* Стили для модального окна */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    .modal h2 {
+      margin-bottom: 20px;
+    }
+    .modal input, .modal textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal button {
+      background: var(--primary);
+      border: none;
+      padding: 10px 20px;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="site-header">
-    <div class="container">
-      <div class="logo">
-        <a href="#">Логотип</a>
-      </div>
-      <!-- Основное меню (для десктопов) -->
-      <nav class="nav-menu">
-        <a href="#hero">Главная</a>
-        <a href="#about">О проекте</a>
-        <a href="#services">Экскурсии</a>
-        <a href="#portfolio">Галерея</a>
-        <a href="#contact">Контакты</a>
-      </nav>
-      <!-- Иконка мобильного меню -->
-      <div class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <!-- Мобильное меню с контактными кнопками -->
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="#" target="_blank">WhatsApp</a>
-        <a href="#" target="_blank">Telegram</a>
-        <a href="tel:+123456789" target="_blank">Позвонить</a>
-      </div>
-    </div>
+    <div class="logo"><a href="#">Логотип</a></div>
+    <nav class="nav-menu">
+      <a href="#hero">Главная</a>
+      <a href="#about">О проекте</a>
+      <a href="#services">Экскурсии</a>
+      <a href="#portfolio">Галерея</a>
+      <a href="#contact">Контакты</a>
+    </nav>
   </header>
   
-  <!-- Hero Section слайдер -->
+  <!-- Секция Hero -->
   <section id="hero" class="hero-section">
-    <div class="hero-slider">
-      <div class="hero-slides">
-        <div class="hero-slide">
-          <img src="images/hero1.jpg" alt="Фото 1">
-        </div>
-        <div class="hero-slide">
-          <img src="images/hero2.jpg" alt="Фото 2">
-        </div>
-        <div class="hero-slide">
-          <img src="images/hero3.jpg" alt="Фото 3">
-        </div>
-      </div>
-    </div>
-    <div class="hero-content">
-      <h1>Сплавы на Камчатке</h1>
-      <p>Откройте для себя уникальные приключения и живописные маршруты.</p>
-      <a href="#contact" class="btn">Связаться с нами</a>
-    </div>
+    <h1>Сплавы на Камчатке</h1>
+    <p>Откройте для себя уникальные приключения и живописные маршруты по Камчатке.</p>
+    <!-- Кнопка, открывающая форму -->
+    <button id="openForm" class="btn">Заполнить форму</button>
   </section>
   
-  <!-- Раздел "О проекте" -->
-  <section id="about" class="about-section">
-    <div class="container">
-      <h2>О проекте</h2>
-      <p>Наш проект посвящён организации незабываемых путешествий по Камчатке. Мы предлагаем экскурсии по живописным маршрутам, позволяющие насладиться уникальной природой и активным отдыхом.</p>
-      <img src="images/about.jpg" alt="О проекте">
-    </div>
+  <!-- Секция "О проекте" -->
+  <section id="about">
+    <h2>О проекте</h2>
+    <p>Наш проект посвящён организации незабываемых путешествий по Камчатке. Наслаждайтесь красотой природы и захватывающими экскурсиями.</p>
   </section>
   
-  <!-- Раздел "Экскурсии" -->
-  <section id="services" class="services-section">
-    <div class="container">
-      <h2>Экскурсии</h2>
-      <div class="service-items">
-        <div class="service-item">
-          <img src="images/service1.jpg" alt="Индивидуальные туры">
-          <h3>Индивидуальные туры</h3>
-          <p>Персональные маршруты для любителей уединённого отдыха.</p>
-        </div>
-        <div class="service-item">
-          <img src="images/service2.jpg" alt="Групповые путешествия">
-          <h3>Групповые путешествия</h3>
-          <p>Организованные туры для компаний и друзей.</p>
-        </div>
-        <div class="service-item">
-          <img src="images/service3.jpg" alt="Активный отдых">
-          <h3>Активный отдых</h3>
-          <p>Экскурсии с элементами приключений и активных развлечений.</p>
-        </div>
-      </div>
-    </div>
+  <!-- Секция "Экскурсии" -->
+  <section id="services">
+    <h2>Экскурсии</h2>
+    <p>Мы предлагаем разнообразные туры для всех желающих: индивидуальные, групповые и активные приключения.</p>
   </section>
   
-  <!-- Раздел "Галерея" -->
-  <section id="portfolio" class="portfolio-section">
-    <div class="container">
-      <h2>Галерея</h2>
-      <div class="slider">
-        <div class="slides">
-          <div class="slide">
-            <img src="images/portfolio1.jpg" alt="Фото 1">
-          </div>
-          <div class="slide">
-            <img src="images/portfolio2.jpg" alt="Фото 2">
-          </div>
-          <div class="slide">
-            <img src="images/portfolio3.jpg" alt="Фото 3">
-          </div>
-        </div>
-        <button class="slider-btn prev">&#10094;</button>
-        <button class="slider-btn next">&#10095;</button>
-      </div>
-    </div>
+  <!-- Секция "Галерея" -->
+  <section id="portfolio">
+    <h2>Галерея</h2>
+    <p>Посмотрите наши яркие моменты и незабываемые приключения.</p>
   </section>
   
-  <!-- Раздел "Контакты" -->
-  <section id="contact" class="contact-section">
-    <div class="container">
-      <h2>Контакты</h2>
-      <div class="chat-buttons">
-        <a href="#" target="_blank">WhatsApp</a>
-        <a href="#" target="_blank">Telegram</a>
-        <a href="tel:+123456789" target="_blank">Позвонить</a>
-      </div>
-    </div>
+  <!-- Секция "Контакты" -->
+  <section id="contact">
+    <h2>Контакты</h2>
+    <p>Свяжитесь с нами через Telegram, WhatsApp или по телефону.</p>
   </section>
   
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2025 Ваша Компания. Все права защищены.</p>
-    </div>
+    <p>&copy; 2025 Ваша Компания. Все права защищены.</p>
   </footer>
   
+  <!-- Модальное окно с формой -->
+  <div class="modal-overlay" id="formModal">
+    <div class="modal">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h2>Заполните форму</h2>
+      <form id="contactForm">
+        <input type="text" id="name" name="name" placeholder="Имя" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
+        <textarea id="message" name="message" placeholder="Комментарий" required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </div>
+  
   <script>
-    // Переключение мобильного меню
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuToggle.addEventListener('click', () => {
-      // Переключаем видимость мобильного меню
-      if (mobileMenu.style.display === 'flex') {
-        mobileMenu.style.display = 'none';
-      } else {
-        mobileMenu.style.display = 'flex';
-        mobileMenu.style.flexDirection = 'column';
-      }
+    document.addEventListener("DOMContentLoaded", function(){
+      const openFormBtn = document.getElementById("openForm");
+      const formModal = document.getElementById("formModal");
+      const closeModal = document.getElementById("closeModal");
+      
+      // Открытие модального окна по клику
+      openFormBtn.addEventListener("click", function(){
+        formModal.style.display = "flex";
+      });
+      
+      // Закрытие модального окна при клике на крестик
+      closeModal.addEventListener("click", function(){
+        formModal.style.display = "none";
+      });
+      
+      // Закрытие окна при клике вне модального содержимого
+      window.addEventListener("click", function(e) {
+        if (e.target === formModal) {
+          formModal.style.display = "none";
+        }
+      });
+      
+      // Отправка данных через Telegram Bot API
+      document.getElementById("contactForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const message = document.getElementById("message").value;
+        const text = "Новое сообщение:\nИмя: " + name +
+                     "\nEmail: " + email +
+                     "\nТелефон: " + phone +
+                     "\nКомментарий: " + message;
+        const chat_id = "ВАШ_CHAT_ID"; // Замените на реальный chat_id
+        const token = "7368926453:AAE10VDqHOaipy9vd7g5bV8GOExClZCCl50";
+        
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            chat_id: chat_id,
+            text: text
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.ok) {
+            alert("Сообщение отправлено!");
+            document.getElementById("contactForm").reset();
+            formModal.style.display = "none";
+          } else {
+            alert("Ошибка отправки сообщения");
+            console.error(data);
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          alert("Ошибка при отправке сообщения");
+        });
+      });
     });
-    
-    // Слайдер для раздела "Галерея"
-    const slides = document.querySelector('.slides');
-    const slideImages = document.querySelectorAll('.slide');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    let currentIndex = 0;
-    const totalSlides = slideImages.length;
-    function showSlide(index) {
-      if (index < 0) {
-        currentIndex = totalSlides - 1;
-      } else if (index >= totalSlides) {
-        currentIndex = 0;
-      } else {
-        currentIndex = index;
-      }
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-    prevBtn.addEventListener('click', () => {
-      showSlide(currentIndex - 1);
-    });
-    nextBtn.addEventListener('click', () => {
-      showSlide(currentIndex + 1);
-    });
-    setInterval(() => {
-      showSlide(currentIndex + 1);
-    }, 5000);
-    
-    // Слайдер для главного экрана (Hero)
-    const heroSlides = document.querySelector('.hero-slides');
-    const heroSlideImages = document.querySelectorAll('.hero-slide');
-    let heroCurrentIndex = 0;
-    const heroTotalSlides = heroSlideImages.length;
-    function showHeroSlide(index) {
-      if(index < 0) {
-        heroCurrentIndex = heroTotalSlides - 1;
-      } else if (index >= heroTotalSlides) {
-        heroCurrentIndex = 0;
-      } else {
-        heroCurrentIndex = index;
-      }
-      heroSlides.style.transform = `translateX(-${heroCurrentIndex * 100}%)`;
-    }
-    setInterval(() => {
-      showHeroSlide(heroCurrentIndex + 1);
-    }, 5000);
   </script>
 </body>
 </html>
