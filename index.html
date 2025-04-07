@@ -6,17 +6,16 @@
   <title>Сплавы на Камчатке</title>
   <!-- Подключаем красивый шрифт -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Подключаем Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
-    /* Основные переменные */
     :root {
       --primary: #ff6f61;
-      --secondary: #ff9472;
-      --accent: #ffd1c1;
-      --text-color: #ffffff;
       --bg-gradient: linear-gradient(135deg, #1d2671, #c33764);
+      --telegram-color: #0088cc;
+      --whatsapp-color: #25D366;
+      --phone-color: #ff9800;
     }
-    
-    /* Сброс и базовые стили */
     * {
       margin: 0;
       padding: 0;
@@ -25,10 +24,9 @@
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--bg-gradient);
-      color: var(--text-color);
+      color: #fff;
       line-height: 1.6;
     }
-    
     /* Шапка сайта */
     .site-header {
       background: rgba(0,0,0,0.7);
@@ -41,27 +39,31 @@
       align-items: center;
     }
     .site-header .logo a {
-      color: var(--primary);
-      font-size: 2rem;
       text-decoration: none;
     }
+    .site-header .logo img {
+      height: 50px;
+    }
     .nav-menu a {
-      color: var(--text-color);
+      color: #fff;
       margin: 0 10px;
       text-decoration: none;
       transition: color 0.3s ease;
     }
     .nav-menu a:hover {
-      color: var(--accent);
+      color: var(--primary);
     }
-    
-    /* Секция Hero */
+    /* Секции */
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
     .hero-section {
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       text-align: center;
       padding: 20px;
     }
@@ -85,15 +87,43 @@
       transition: background 0.3s ease;
     }
     .btn:hover {
-      background: var(--secondary);
+      opacity: 0.9;
     }
-    
-    /* Другие секции */
-    section {
-      padding: 80px 20px;
-      text-align: center;
+    /* Слайдер */
+    .slider {
+      position: relative;
+      max-width: 800px;
+      margin: 20px auto;
+      overflow: hidden;
     }
-    
+    .slider .slide {
+      display: none;
+    }
+    .slider .slide.active {
+      display: block;
+    }
+    .slider img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .slider .prev, .slider .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    .slider .prev {
+      left: 10px;
+    }
+    .slider .next {
+      right: 10px;
+    }
     /* Footer */
     .site-footer {
       background: rgba(0,0,0,0.7);
@@ -101,8 +131,7 @@
       text-align: center;
       color: #fff;
     }
-    
-    /* Стили для модального окна */
+    /* Модальное окно */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -120,25 +149,43 @@
       border-radius: 10px;
       max-width: 400px;
       width: 90%;
+      text-align: center;
       position: relative;
     }
     .modal h2 {
       margin-bottom: 20px;
     }
-    .modal input, .modal textarea {
-      width: 100%;
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
       padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .modal button {
-      background: var(--primary);
       border: none;
-      padding: 10px 20px;
-      color: #fff;
       border-radius: 5px;
+      width: 100%;
       cursor: pointer;
+      font-size: 1rem;
+      transition: opacity 0.3s ease;
+      text-decoration: none;
+    }
+    .contact-btn i {
+      margin-right: 10px;
+    }
+    .contact-btn:hover {
+      opacity: 0.9;
+    }
+    .telegram-btn {
+      background: var(--telegram-color);
+      color: #fff;
+    }
+    .whatsapp-btn {
+      background: var(--whatsapp-color);
+      color: #fff;
+    }
+    .phone-btn {
+      background: var(--phone-color);
+      color: #fff;
     }
     .close-modal {
       position: absolute;
@@ -152,13 +199,16 @@
 <body>
   <!-- Header -->
   <header class="site-header">
-    <div class="logo"><a href="#">Логотип</a></div>
+    <div class="logo">
+      <a href="#">
+        <img src="custom/logo.png" alt="Логотип">
+      </a>
+    </div>
     <nav class="nav-menu">
       <a href="#hero">Главная</a>
       <a href="#about">О проекте</a>
       <a href="#services">Экскурсии</a>
       <a href="#portfolio">Галерея</a>
-      <a href="#contact">Контакты</a>
     </nav>
   </header>
   
@@ -166,32 +216,60 @@
   <section id="hero" class="hero-section">
     <h1>Сплавы на Камчатке</h1>
     <p>Откройте для себя уникальные приключения и живописные маршруты по Камчатке.</p>
-    <!-- Кнопка, открывающая форму -->
-    <button id="openForm" class="btn">Заполнить форму</button>
+    <button id="openContact" class="btn">Связаться с нами</button>
   </section>
   
-  <!-- Секция "О проекте" -->
+  <!-- Секция О проекте с слайдером -->
   <section id="about">
     <h2>О проекте</h2>
-    <p>Наш проект посвящён организации незабываемых путешествий по Камчатке. Наслаждайтесь красотой природы и захватывающими экскурсиями.</p>
+    <p>Наш проект посвящён организации незабываемых путешествий по Камчатке.</p>
+    <!-- Слайдер для секции "О проекте" -->
+    <div class="slider">
+      <div class="slide active">
+        <img src="custom/about1.jpg" alt="О проекте 1">
+      </div>
+      <div class="slide">
+        <img src="custom/about2.jpg" alt="О проекте 2">
+      </div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
   </section>
   
-  <!-- Секция "Экскурсии" -->
+  <!-- Секция Экскурсии с слайдером -->
   <section id="services">
     <h2>Экскурсии</h2>
-    <p>Мы предлагаем разнообразные туры для всех желающих: индивидуальные, групповые и активные приключения.</p>
+    <p>Индивидуальные и групповые туры для всех желающих.</p>
+    <!-- Слайдер для секции "Экскурсии" -->
+    <div class="slider">
+      <div class="slide active">
+        <img src="custom/services1.jpg" alt="Экскурсии 1">
+      </div>
+      <div class="slide">
+        <img src="custom/services2.jpg" alt="Экскурсии 2">
+      </div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
   </section>
   
-  <!-- Секция "Галерея" -->
+  <!-- Секция Галерея с слайдером -->
   <section id="portfolio">
     <h2>Галерея</h2>
-    <p>Посмотрите наши яркие моменты и незабываемые приключения.</p>
-  </section>
-  
-  <!-- Секция "Контакты" -->
-  <section id="contact">
-    <h2>Контакты</h2>
-    <p>Свяжитесь с нами через Telegram, WhatsApp или по телефону.</p>
+    <p>Яркие моменты наших путешествий.</p>
+    <div class="slider">
+      <div class="slide active">
+        <img src="custom/slider1.jpg" alt="Слайд 1">
+      </div>
+      <div class="slide">
+        <img src="custom/slider2.jpg" alt="Слайд 2">
+      </div>
+      <div class="slide">
+        <img src="custom/slider3.jpg" alt="Слайд 3">
+      </div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
   </section>
   
   <!-- Footer -->
@@ -199,82 +277,80 @@
     <p>&copy; 2025 Ваша Компания. Все права защищены.</p>
   </footer>
   
-  <!-- Модальное окно с формой -->
-  <div class="modal-overlay" id="formModal">
+  <!-- Модальное окно с контактными кнопками -->
+  <div class="modal-overlay" id="contactModal">
     <div class="modal">
       <span class="close-modal" id="closeModal">&times;</span>
-      <h2>Заполните форму</h2>
-      <form id="contactForm">
-        <input type="text" id="name" name="name" placeholder="Имя" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="tel" id="phone" name="phone" placeholder="Телефон" required>
-        <textarea id="message" name="message" placeholder="Комментарий" required></textarea>
-        <button type="submit">Отправить</button>
-      </form>
+      <h2>Свяжитесь с нами</h2>
+      <!-- Telegram -->
+      <a class="contact-btn telegram-btn" href="https://t.me/ozuexe" target="_blank">
+        <i class="fab fa-telegram-plane"></i> Telegram
+      </a>
+      <!-- WhatsApp -->
+      <a class="contact-btn whatsapp-btn" href="https://wa.me/1234567890" target="_blank">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+      <!-- Звонок -->
+      <a class="contact-btn phone-btn" href="tel:+123456789" target="_blank">
+        <i class="fas fa-phone"></i> Позвонить
+      </a>
     </div>
   </div>
   
   <script>
+    // Логика модального окна
     document.addEventListener("DOMContentLoaded", function(){
-      const openFormBtn = document.getElementById("openForm");
-      const formModal = document.getElementById("formModal");
+      const openContactBtn = document.getElementById("openContact");
+      const contactModal = document.getElementById("contactModal");
       const closeModal = document.getElementById("closeModal");
       
-      // Открытие модального окна по клику
-      openFormBtn.addEventListener("click", function(){
-        formModal.style.display = "flex";
+      openContactBtn.addEventListener("click", function(){
+        contactModal.style.display = "flex";
       });
       
-      // Закрытие модального окна при клике на крестик
       closeModal.addEventListener("click", function(){
-        formModal.style.display = "none";
+        contactModal.style.display = "none";
       });
       
-      // Закрытие окна при клике вне модального содержимого
       window.addEventListener("click", function(e) {
-        if (e.target === formModal) {
-          formModal.style.display = "none";
+        if (e.target === contactModal) {
+          contactModal.style.display = "none";
         }
       });
-      
-      // Отправка данных через Telegram Bot API
-      document.getElementById("contactForm").addEventListener("submit", function(e){
-        e.preventDefault();
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const phone = document.getElementById("phone").value;
-        const message = document.getElementById("message").value;
-        const text = "Новое сообщение:\nИмя: " + name +
-                     "\nEmail: " + email +
-                     "\nТелефон: " + phone +
-                     "\nКомментарий: " + message;
-        // Используем ваш Telegram-ник в качестве chat_id
-        const chat_id = "@ozuexe"; 
-        const token = "7368926453:AAE10VDqHOaipy9vd7g5bV8GOExClZCCl50";
+    });
+    
+    // Инициализация всех слайдеров на странице
+    document.addEventListener("DOMContentLoaded", function(){
+      const sliders = document.querySelectorAll(".slider");
+      sliders.forEach(slider => {
+        const slides = slider.querySelectorAll(".slide");
+        const prev = slider.querySelector(".prev");
+        const next = slider.querySelector(".next");
+        let currentSlide = 0;
         
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({
-            chat_id: chat_id,
-            text: text
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if(data.ok) {
-            alert("Сообщение отправлено!");
-            document.getElementById("contactForm").reset();
-            formModal.style.display = "none";
-          } else {
-            alert("Ошибка отправки сообщения");
-            console.error(data);
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          alert("Ошибка при отправке сообщения");
-        });
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === index);
+          });
+        }
+        
+        if(prev && next) {
+          prev.addEventListener("click", function(){
+            currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
+            showSlide(currentSlide);
+          });
+          
+          next.addEventListener("click", function(){
+            currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
+            showSlide(currentSlide);
+          });
+        }
+        
+        // Автопрокрутка слайдов (каждые 5 секунд)
+        setInterval(function(){
+          currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
+          showSlide(currentSlide);
+        }, 5000);
       });
     });
   </script>
